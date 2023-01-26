@@ -1,0 +1,8 @@
+{
+  "name": "smartnx-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/NScorzelli/smartnx-challenge.git",
+  "author": "Nícolas <nicolasscorzelli@gmail.com>",
+  "license": "MIT"
+}
