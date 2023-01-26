@@ -1,2 +1,2 @@
 # smartnx-challenge
-Desafio backend proposto pela SmartNX.
+Desafio backend proposto pela SmartNX
