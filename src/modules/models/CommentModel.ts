@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize'
 import database from '../../database/db'
-import PostModel from './PostModel'
 
 class CommentModel {
-    async create(comment: string, idPost: number) {
-        const comments = database.define('comments', {
+    comments: any;
+
+    constructor() {
+        this.comments = database.define('comments', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -19,21 +20,11 @@ class CommentModel {
                 allowNull: false,
             },
         });
+    }
 
-        comments.belongsTo(PostModel.posts, {
-            as: 'post',
-            foreignKey: 'idPost',
-            targetKey: 'id'
-        });
-    
-        PostModel.posts.hasMany(comments, {
-            as: 'comments',
-            foreignKey: 'idPost',
-            sourceKey: 'id'
-        });
-
-        await comments.sync({ force: false });
-        await comments.create({ text: comment, idPost });
+    async create(comment: string, idPost: number) {
+        await this.comments.sync({ force: false });
+        await this.comments.create({ text: comment, idPost });
     }
 }
 
