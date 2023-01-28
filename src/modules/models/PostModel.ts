@@ -29,6 +29,91 @@ class PostModel {
         await this.posts.sync({ force: false });
         await this.posts.create({ text: post });
     }
+
+    async getPosts() {
+        await this.posts.sync({ force: false });
+
+        const posts = await this.posts.findAll({
+            attributes: ['id', 'text'],
+            include: [
+                {
+                    model: CommentModel.comments,
+                    as: 'comments',
+                    attributes: ['id', 'text', 'idPost'],
+                },
+            ],
+        });
+        return posts;
+    }
+
+    async getPost(id: string) {
+        await this.posts.sync({ force: false });
+
+        const post = await this.posts.findOne({
+            where: { id },
+            attributes: ['id', 'text'],
+            include: [
+                {
+                    model: CommentModel.comments,
+                    as: 'comments',
+                    attributes: ['id', 'text', 'idPost'],
+                },
+            ],
+        });
+
+        if (!post) {
+            return null;
+        }
+        return post;
+    }
+
+    async update(id: string, text: string) {
+        await this.posts.sync({ force: false });
+
+        const post = await this.posts.findOne({
+            where: { id },
+            attributes: ['id', 'text'],
+            include: [
+                {
+                    model: CommentModel.comments,
+                    as: 'comments',
+                    attributes: ['id', 'text', 'idPost'],
+                },
+            ],
+        });
+
+        if (!post) {
+            return null;
+        }
+
+        await this.posts.update({ text }, { where: { id } });
+
+        return post;
+    }
+
+    async delete(id: string) {
+        await this.posts.sync({ force: false });
+
+        const post = await this.posts.findOne({
+            where: { id },
+            attributes: ['id', 'text'],
+            include: [
+                {
+                    model: CommentModel.comments,
+                    as: 'comments',
+                    attributes: ['id', 'text', 'idPost'],
+                },
+            ],
+        });
+
+        if (!post) {
+            return null;
+        }
+
+        await this.posts.destroy({ where: { id } });
+
+        return post;
+    }
 }
 
 export default new PostModel()

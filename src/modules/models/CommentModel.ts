@@ -26,6 +26,21 @@ class CommentModel {
         await this.comments.sync({ force: false });
         await this.comments.create({ text: comment, idPost });
     }
+
+    async getCommentById(id: string) {
+        await this.comments.sync({ force: false });
+
+        const comment = await this.comments.findOne({
+            where: { id },
+            attributes: ['id', 'text', 'idPost'],
+        });
+        return comment;
+    }
+
+    async deleteComment(id: string) {
+        await this.comments.sync({ force: false });
+        await this.comments.destroy({ where: { id } });
+    }
 }
 
 export default new CommentModel()

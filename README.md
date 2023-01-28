@@ -26,17 +26,43 @@ posts. Também possui endpoints para adicionar um ou mais comentários a um post
 
  ## Create Post
 
-> ### BaseURL/post
+> ### [POST] BaseURL/post 
 ````
 	{
 		"text": "Exemplo de publicação"
 	}
 ````
 ## Create Comment
-> ### BaseURL/comment
+> ### [POST] BaseURL/comment
 ````
 	{
 	    "idPost": "1",
 	    "comment": "Exemplo de comentário"
     }
 ````
+## Get Posts
+> ### [GET] BaseURL/posts
+````
+````
+## Get Post by Id
+> ### [GET] BaseURL/post/id
+````
+````
+## Update Post
+> ### [PATCH] BaseURL/post/id
+````
+	{
+		"text": "Exemplo de publicação"
+    }
+````
+## Delete Post
+> ### [Delete] BaseURL/post/id
+````
+````
+## Delete Comment
+> ### [Delete] BaseURL/comment/id
+````
+````
+
+
+
