@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import CommentModel from '../models/CommentModel';
-
+import CommentModel from '../../database/models/CommentModel';
 
 export class CreateCommentService {
     async create(req: Request, res: Response): Promise<Response> {

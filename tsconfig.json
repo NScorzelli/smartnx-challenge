@@ -19,24 +19,34 @@
   "allowSyntheticDefaultImports": true,
   "baseUrl": ".",
   "paths": {
-  "@modules/": ["./src/modules/"],
-  "@config/": ["./src/config/"],
-  "@shared/": ["./src/shared/"],
-  "@test/": ["./test/"]
+    "@modules/*": ["./src/modules/*"],
+    "@config/*": ["./src/config/*"],
+    "@shared/*": ["./src/shared/*"],
+    "@database/*": ["./src/database/*"],
+    "@test/*": ["./test/*"]
   },
   "rootDirs": [
-  "./src",
-  "./test"
+    "./src",
+    "./test"
   ],
   "experimentalDecorators": true,
   "emitDecoratorMetadata": true
-  },
-  "include": [
+},
+"include": [
   "./src/**/*.ts",
-  "./test//.ts"
-, "src/database/connection.ts", "src/modules/models/Post.js", "src/shared/http/Routes/index.js", "src/database/db.js", "src/modules/services/CreatePostService.js"  ],
-  "exclude": [
+  "./test/**/*.ts",
+  "src/database/connection.ts",
+  "src/database/models/Post.js",
+  "src/shared/http/Routes/index.js",
+  "src/database/db.js",
+  "src/modules/services/CreatePostService.js"
+],
+"exclude": [
   "./node_modules/",
   "dist"
-  ]
-  }
+]
+}
+
+
+
+
