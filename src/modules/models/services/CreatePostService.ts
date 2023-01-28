@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import PostModel from '../../database/models/PostModel'; 
+import PostModel from '../PostModel'; 
 
 export class CreatePostService {
     async create(req: Request, res: Response): Promise<Response> {

@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-import database from '../config'
+import database from '../../shared/database/config'
 import CommentModel from './CommentModel'
 
 class PostModel {

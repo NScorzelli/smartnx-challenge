@@ -22,7 +22,7 @@
     "@modules/*": ["./src/modules/*"],
     "@config/*": ["./src/config/*"],
     "@shared/*": ["./src/shared/*"],
-    "@database/*": ["./src/database/*"],
+    "@database/*": ["src/shared/database/*"],
     "@test/*": ["./test/*"]
   },
   "rootDirs": [
@@ -35,11 +35,11 @@
 "include": [
   "./src/**/*.ts",
   "./test/**/*.ts",
-  "src/database/connection.ts",
-  "src/database/models/Post.js",
+  "src/shared/database/connection.ts",
+  "src/modules/models/Post.js",
   "src/shared/http/Routes/index.js",
-  "src/database/db.js",
-  "src/modules/services/CreatePostService.js"
+  "src/shared/database/db.js",
+  "src/modules/models/services/CreatePostService.js"
 ],
 "exclude": [
   "./node_modules/",

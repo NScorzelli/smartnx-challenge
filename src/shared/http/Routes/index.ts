@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import CreatePostService from '../../../../src/modules/services/CreatePostService'
-import CreateCommentService from '../../../../src/modules/services/CreateCommentService'
+import CreatePostService from '../../../modules/models/services/CreatePostService'
+import CreateCommentService from '../../../modules/models/services/CreateCommentService'
 const routes = Router()
 
 routes.post('/post', CreatePostService.create)

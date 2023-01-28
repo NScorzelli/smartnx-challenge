@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
-import routes from './shared/http/Routes'
+import routes from './http/Routes'
 import cors from 'cors'
-import AppError from './shared/errors/app-error'
+import AppError from './errors/app-error'
 
 const port = 3000
 const app = express()
