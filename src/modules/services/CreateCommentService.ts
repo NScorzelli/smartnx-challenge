@@ -1,38 +1,14 @@
-import Sequelize from 'sequelize'
-import database from '../../database/db'
-import PostModel from './../models/PostModel'
+import { Request, Response } from 'express';
+import CommentModel from '../models/CommentModel';
 
-const comments = database.define('comments', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    comment: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    idPost: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'posts',
-            key: 'id'
-        }
-    },
-});
 
-comments.belongsTo(PostModel.posts, {
-    as: 'post',
-    foreignKey: 'idPost',
-    targetKey: 'id'
-});
+export class CreateCommentService {
+    async create(req: Request, res: Response): Promise<Response> {
+        const { comment, idPost } = req.body;
+        const newComment = await CommentModel.create(comment, idPost);
 
-PostModel.posts.hasMany(comments, {
-    as: 'comments',
-    foreignKey: 'idPost',
-    sourceKey: 'id'
-});
-
-export default { 
-    comments
+        return res.status(201).json(newComment)
+    }
 }
+
+export default new CreateCommentService()
