@@ -1,10 +1,7 @@
-import { Router, Request, Response } from 'express'
-
+import { Router } from 'express'
+import CreatePostService from '../../../../src/modules/services/CreatePostService'
 const routes = Router()
 
-routes.get('/', (request: Request, response: Response) => {
-  return response.json({ message: 'Hello World' })
-})
-
+routes.post('/post', CreatePostService.create)
 
 export default routes
