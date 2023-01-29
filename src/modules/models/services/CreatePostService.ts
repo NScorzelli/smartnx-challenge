@@ -15,7 +15,7 @@ export class CreatePostService {
 
         await PostModel.create(text);
 
-        return res.status(201).json({message: 'Post created!' || 'Post not found!'})
+        return res.status(201).json({message: 'Post created!'})
     }
 
     async getPosts(req: Request, res: Response): Promise<Response> {
