@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-import { getAsync, redis, setAsync } from '../../../src/config/configRedis'
+import { getAsync, redis, setAsync } from '../../config/config'
 import database from '../../shared/database/config'
 import { badRequest, notFound } from '../../shared/errors/helper/http-helper'
 import { MissingParamError } from '../../shared/errors/missing-param-error'
