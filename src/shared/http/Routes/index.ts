@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import CreatePostService from '../../../modules/models/services/CreatePostService'
 import CreateCommentService from '../../../modules/models/services/CreateCommentService'
+import CreatePostService from '../../../modules/models/services/CreatePostService'
 const routes = Router()
 
 routes.post('/post', CreatePostService.create)
@@ -13,6 +13,6 @@ routes.patch('/post/:id', CreatePostService.update)
 
 routes.delete('/post/:id', CreatePostService.delete)
 
-routes.delete('/comment/:id', CreateCommentService.delete)
+routes.delete('/comment/:id', CreateCommentService.deleteComment)
 
 export default routes

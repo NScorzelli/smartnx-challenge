@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import { badRequest, notFound, ok } from '../../../shared/errors/helper/http-helper'
+import { badRequest, noContent, notFound, ok } from '../../../shared/errors/helper/http-helper'
 import { MissingParamError } from '../../../shared/errors/missing-param-error'
 import CommentModel from '../CommentModel'
 
@@ -20,7 +20,7 @@ export class CreateCommentService {
     return res.send(ok(comment))
   }
 
-  async delete (req: Request, res: Response): Promise<Response> {
+  async deleteComment (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
     if (!id) {
@@ -35,7 +35,7 @@ export class CreateCommentService {
 
     await CommentModel.deleteComment(id)
 
-    return res.send(ok(comment))
+    return res.json(noContent())
   }
 }
 

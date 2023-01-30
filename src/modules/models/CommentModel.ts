@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize'
 import database from '../../shared/database/config'
+import { noContent } from '../../shared/errors/helper/http-helper'
 
 export interface Comment {
   id: string
@@ -42,9 +43,9 @@ class CommentModel {
   }
 
   async deleteComment (id: string): Promise<number> {
-    const response = await this.comments.destroy({ where: { id } })
+    await this.comments.destroy({ where: { id } })
 
-    return response
+    return noContent()
   }
 }
 
