@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import CommentModel from '../CommentModel';
+import { badRequest, ok, notFound, noContent } from '../../../shared/errors/helper/http-helper';
+import { MissingParamError } from '../../../shared/errors/missing-param-error';
 
 interface Comment {
     comment: string;
@@ -10,30 +12,30 @@ export class CreateCommentService {
         const { comment, idPost } = req.body as Comment;
 
         if (!comment || !idPost) {
-            return res.status(400).json({message: 'Comment is required!' || 'idPost is required!'})
+            return res.send(badRequest(new MissingParamError('comment or idPost')))
         }
 
-        await CommentModel.create(comment, idPost);
+        await CommentModel.create(comment, idPost)
 
-        return res.status(201).json({message: 'Comment created!'})
+        return res.send(ok(comment))
     }
 
     async delete(req: Request, res: Response): Promise<Response> {
         const { id } = req.params;
 
         if(!id) {
-            return res.status(400).json({message: 'Valid id is required'})
+            return res.send(badRequest(new Error('Comment not found!')))
         }
 
         const comment = await CommentModel.getCommentById(id);
 
         if (!comment || comment === null) {
-            return res.status(404).json({message: 'Comment not found!'})
+            return res.send(notFound(new Error('Comment not found!')))
         }
 
         await CommentModel.deleteComment(id);
 
-        return res.status(200).json({message: 'Comment deleted!'})
+        return res.send(ok(comment))
     }
 }
 
