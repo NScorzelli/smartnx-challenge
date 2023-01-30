@@ -11,7 +11,6 @@ posts. Também possui endpoints para adicionar um ou mais comentários a um post
 * Node
 * MySql
 * Redis
-* Docker
 * DBeaver (opcional)
 * VSCode
 * yarn / npm
