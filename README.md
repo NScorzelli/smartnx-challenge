@@ -21,7 +21,7 @@ posts. Também possui endpoints para adicionar um ou mais comentários a um post
 * utilize o comando yarn ou npm para instalar as dependências necessárias do projeto.
 * Utilize o DBeaver(opcional) ou o MySql Workbench para o acompanhamento das tabelas
 * Insomnia para o envio de requisições
-* *yarn dev* para subir a aplicação
+* *yarn build* e *yarn start* para subir a aplicação.
 <br/><br/>
 # **Endpoints**
 
