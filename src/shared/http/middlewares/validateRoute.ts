@@ -8,7 +8,7 @@ const validateRoute = (req: Request, res: Response, next: NextFunction): any => 
 
   if (method === 'POST' && path === '/post') {
     const { text } = req.body
-    if (!text) res.send(badRequest(new MissingParamError(text)))
+    if (!text) res.send(badRequest(new MissingParamError('text')))
   } else if (method === 'POST' && path === '/comment') {
     const { text, idPost } = req.body
     if (!text || !idPost) res.send(badRequest(new MissingParamError('text or postId')))
