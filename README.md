@@ -37,9 +37,9 @@ posts. Também possui endpoints para adicionar um ou mais comentários a um post
 > ### [POST] BaseURL/comment
 ````
 	{
-	    "idPost": "a058a46c-cf69-4096-a667-a290ffb0ba00",
-	    "text": "Exemplo de comentário"
-    }
+		"idPost": "31958431-9633-4672-b05b-bde6a9ffbd53",
+		"text": "Exemplo de comentário"
+	}
 ````
 ## Get Posts
 > ### [GET] BaseURL/posts
