@@ -8,22 +8,22 @@ const validateRoute = (req: Request, res: Response, next: NextFunction): any => 
 
   if (method === 'POST' && path === '/post') {
     const { text } = req.body
-    if (!text) res.send(badRequest(new MissingParamError('text')))
+    if (!text) return res.status(400).send(badRequest(new MissingParamError('text')))
   } else if (method === 'POST' && path === '/comment') {
     const { text, idPost } = req.body
-    if (!text || !idPost) res.send(badRequest(new MissingParamError('text or postId')))
+    if (!text || !idPost) return res.status(400).send(badRequest(new MissingParamError('text or postId')))
   } else if (method === 'GET' && path.startsWith('/post/')) {
     const { id } = params
-    if (!id) return res.send(badRequest(new MissingParamError('id')))
+    if (!id) return res.status(400).send(badRequest(new MissingParamError('id')))
   } else if (method === 'PATCH' && path.startsWith('/post/')) {
     const { title, content } = body
-    if (!title || !content) res.send(badRequest(new MissingParamError('title or content')))
+    if (!title || !content) return res.status(400).send(badRequest(new MissingParamError('title or content')))
   } else if (method === 'DELETE' && path.startsWith('/post/')) {
     const { id } = params
-    if (!id) res.send(badRequest(new MissingParamError('id')))
+    if (!id) return res.status(400).send(badRequest(new MissingParamError('id')))
   } else if (method === 'DELETE' && path.startsWith('/comment/')) {
     const { id } = params
-    if (!id) res.send(badRequest(new MissingParamError('id')))
+    if (!id) return res.status(400).send(badRequest(new MissingParamError('id')))
   }
 
   next()
