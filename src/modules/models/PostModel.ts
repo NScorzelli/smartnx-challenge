@@ -1,15 +1,14 @@
 import Sequelize from 'sequelize'
 import { getAsync, redis, setAsync } from '../../config/redis'
 import database from '../../shared/database/config'
-import { badRequest, notFound } from '../../shared/errors/helper/http-helper'
-import { MissingParamError } from '../../shared/errors/missing-param-error'
-import CommentModel, { type Comment } from './CommentModel'
+import { notFound } from '../../shared/errors/helper/http-helper'
+import CommentModel from './CommentModel'
 
 interface Post {
   id: string
   text: string
-  comments?: Comment[]
 }
+
 class PostModel {
   posts: any
 
@@ -59,10 +58,6 @@ class PostModel {
   }
 
   async getPost (id: string): Promise<Post> {
-    if (!id) {
-      return notFound(new MissingParamError(id))
-    }
-
     const postFromCache = await getAsync(`post:${id}`)
     if (postFromCache) {
       return JSON.parse(postFromCache)
@@ -70,15 +65,12 @@ class PostModel {
 
     const post = await this.posts.findOne({
       where: { id },
-      attributes: ['id', 'text'],
-      include: [
-        {
-          model: CommentModel.comments,
-          as: 'comments',
-          attributes: ['id', 'text', 'idPost']
-        }
-      ]
+      attributes: ['id', 'text']
     })
+
+    if (!post) {
+      return notFound(Error('Post not found'))
+    }
 
     await setAsync(`post:${id}`, JSON.stringify(post))
 
@@ -86,13 +78,9 @@ class PostModel {
   }
 
   async update (id: string, text: string): Promise<Post> {
-    if (!id) {
-      return badRequest(new MissingParamError(id))
-    }
-
-    const post = await getAsync(`post:${id}`)
-    if (post) {
-      await setAsync(`post:${id}`, JSON.stringify({ ...JSON.parse(post), text }))
+    const postFromCache = await getAsync(`post:${id}`)
+    if (postFromCache) {
+      await setAsync(`post:${id}`, JSON.stringify({ ...JSON.parse(postFromCache), text }))
     }
 
     await this.posts.update({ text }, { where: { id } })
@@ -101,12 +89,8 @@ class PostModel {
   }
 
   async delete (id: string): Promise<Post> {
-    if (!id) {
-      return badRequest(new MissingParamError(id))
-    }
-
-    const post = await getAsync(`post:${id}`)
-    if (post) {
+    const postFromCache = await getAsync(`post:${id}`)
+    if (postFromCache) {
       await redis.del(`post:${id}`)
     }
 
