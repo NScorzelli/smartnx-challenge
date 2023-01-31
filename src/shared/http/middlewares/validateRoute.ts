@@ -6,38 +6,24 @@ const validateRoute = (req: Request, res: Response, next: NextFunction): any => 
   const { method, path } = req
   const { body, params } = req
 
-  switch (true) {
-    case method === 'POST' && path === '/post': {
-      const { title, content } = body
-      if (!title || !content) res.send(badRequest(new MissingParamError('title or content')))
-      break
-    }
-    case method === 'POST' && path === '/comment': {
-      const { content, postId } = body
-      if (!content || !postId) res.send(badRequest(new MissingParamError('content or postId')))
-      break
-    }
-    case method === 'GET' && path === '/posts': break
-    case method === 'GET' && path.startsWith('/post/'): {
-      const { id } = params
-      if (!id) return res.send(badRequest(new MissingParamError('id')))
-      break
-    }
-    case method === 'PATCH' && path.startsWith('/post/'): {
-      const { title, content } = body
-      if (!title || !content) res.send(badRequest(new MissingParamError('title or content')))
-      break
-    }
-    case method === 'DELETE' && path.startsWith('/post/'): {
-      const { id } = params
-      if (!id) res.send(badRequest(new MissingParamError('id')))
-      break
-    }
-    case method === 'DELETE' && path.startsWith('/comment/'): {
-      const { id } = params
-      if (!id) res.send(badRequest(new MissingParamError('id')))
-      break
-    }
+  if (method === 'POST' && path === '/post') {
+    const { text } = req.body
+    if (!text) res.send(badRequest(new MissingParamError(text)))
+  } else if (method === 'POST' && path === '/comment') {
+    const { text, idPost } = req.body
+    if (!text || !idPost) res.send(badRequest(new MissingParamError('text or postId')))
+  } else if (method === 'GET' && path.startsWith('/post/')) {
+    const { id } = params
+    if (!id) return res.send(badRequest(new MissingParamError('id')))
+  } else if (method === 'PATCH' && path.startsWith('/post/')) {
+    const { title, content } = body
+    if (!title || !content) res.send(badRequest(new MissingParamError('title or content')))
+  } else if (method === 'DELETE' && path.startsWith('/post/')) {
+    const { id } = params
+    if (!id) res.send(badRequest(new MissingParamError('id')))
+  } else if (method === 'DELETE' && path.startsWith('/comment/')) {
+    const { id } = params
+    if (!id) res.send(badRequest(new MissingParamError('id')))
   }
 
   next()
