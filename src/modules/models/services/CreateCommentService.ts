@@ -4,20 +4,20 @@ import { MissingParamError } from '../../../shared/errors/missing-param-error'
 import CommentModel from '../CommentModel'
 
 interface Comment {
-  comment: string
+  text: string
   idPost: number
 }
 export class CreateCommentService {
   async create (req: Request, res: Response): Promise<Response> {
-    const { comment, idPost } = req.body as Comment
+    const { text, idPost } = req.body as Comment
 
-    if (!comment || !idPost) {
-      return res.send(badRequest(new MissingParamError('comment or idPost')))
+    if (!text || !idPost) {
+      return res.send(badRequest(new MissingParamError('text or idPost')))
     }
 
-    await CommentModel.create(comment, idPost)
+    await CommentModel.create(text, idPost)
 
-    return res.send(ok(comment))
+    return res.send(ok(text))
   }
 
   async deleteComment (req: Request, res: Response): Promise<Response> {
